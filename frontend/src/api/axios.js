@@ -42,7 +42,7 @@ instance.interceptors.response.use(
   (error) => {
     console.error('Axios error details:', error.response || error.message);
     
-    // Halimbawa: Kung expired na ang token (401), pwedeng i-redirect ang user sa login
+  
     if (error.response && error.response.status === 401) {
       console.warn('⚠️ Token expired or invalid. Redirecting to login...');
       // localStorage.removeItem('token'); // Optional: Burahin ang invalid token
