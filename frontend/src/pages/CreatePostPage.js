@@ -10,7 +10,7 @@ const CreatePostPage = () => {
   const [image, setImage] = useState(null);
   const [error, setError] = useState('');
 
-  const { user } = useAuth();
+  //const { user } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
