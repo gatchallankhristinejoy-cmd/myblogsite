@@ -18,7 +18,7 @@ connectDB();
 // -- Middleware --
 // Sa deployment, mas safe na gamitin ang origin: true o ang specific Vercel URL mo mamaya
 app.use(cors({
-  origin: true, 
+  origin: ["https://myblogsite-widi.vercel.app", "http://localhost:5173"], 
   credentials: true,
   allowedHeaders: ['Content-Type', 'Authorization'],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
