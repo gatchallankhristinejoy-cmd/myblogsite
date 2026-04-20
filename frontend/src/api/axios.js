@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const instance = axios.create({
   // URL ng iyong live backend sa Render
-  baseURL: 'https://thefolio-backend.onrender.com/api', 
+  baseURL: 'https://myblogsite-cov8.onrender.com/api', 
   timeout: 10000,
   withCredentials: true, // Pinapayagan ang cookies/sessions kung kailangan
 });
