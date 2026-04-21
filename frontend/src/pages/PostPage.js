@@ -1,4 +1,3 @@
-// frontend/src/pages/PostPage.js
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
@@ -76,7 +75,7 @@ const PostPage = () => {
     <div className='post-page'>
       {post.image && (
         <img
-          src={`http://localhost:5000/uploads/${post.image}`}
+          src={`https://myblogsite-cov8.onrender.com/uploads/${post.image}`}
           alt={post.title}
           className='post-image'
         />
@@ -104,7 +103,6 @@ const PostPage = () => {
         ))}
       </div>
 
-      {/* Comments Section */}
       <div className='comments-section'>
         <h3>Comments ({comments.length})</h3>
         {comments.map((comment) => (

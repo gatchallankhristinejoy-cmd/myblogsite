@@ -1,4 +1,3 @@
-// frontend/src/pages/ProfilePage.js
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
@@ -29,7 +28,6 @@ const ProfilePage = () => {
     if (pic) fd.append('profilePic', pic);
 
     try {
-      // Do NOT manually set Content-Type — Axios sets multipart automatically
       const { data } = await API.put('/auth/profile', fd);
       setUser(data);
       setMsg('Profile updated successfully!');
@@ -57,15 +55,13 @@ const ProfilePage = () => {
   };
 
   const picSrc = user?.profilePic
-    ? `http://localhost:5000/uploads/${user.profilePic}`
+    ? `https://myblogsite-cov8.onrender.com/uploads/${user.profilePic}`
     : '/default-avatar.png';
 
-  // Fetch user's posts
   useEffect(() => {
     const fetchUserPosts = async () => {
       try {
         const { data } = await API.get('/posts');
-        // Filter posts by current user
         const userPosts = data.filter(post => post.author?._id === user?._id);
         setPosts(userPosts);
       } catch (err) {
@@ -90,57 +86,22 @@ const ProfilePage = () => {
 
       <form onSubmit={handleProfile}>
         <h3>Edit Profile</h3>
-
-        <input
-          value={name}
-          onChange={e => setName(e.target.value)}
-          placeholder='Display name'
-        />
-
-        <textarea
-          value={bio}
-          onChange={e => setBio(e.target.value)}
-          placeholder='Short bio...'
-          rows={3}
-        />
-
+        <input value={name} onChange={e => setName(e.target.value)} placeholder='Display name' />
+        <textarea value={bio} onChange={e => setBio(e.target.value)} placeholder='Short bio...' rows={3} />
         <label>Change Profile Picture:</label>
-
-        <input
-          type='file'
-          accept='image/*'
-          onChange={e => setPic(e.target.files[0])}
-        />
-
+        <input type='file' accept='image/*' onChange={e => setPic(e.target.files[0])} />
         <button type='submit'>Save Profile</button>
       </form>
 
       <form onSubmit={handlePassword}>
         <h3>Change Password</h3>
-
-        <input
-          type='password'
-          placeholder='Current password'
-          value={curPw}
-          onChange={e => setCurPw(e.target.value)}
-          required
-        />
-
-        <input
-          type='password'
-          placeholder='New password (min 6 chars)'
-          value={newPw}
-          onChange={e => setNewPw(e.target.value)}
-          required
-          minLength={6}
-        />
-
+        <input type='password' placeholder='Current password' value={curPw} onChange={e => setCurPw(e.target.value)} required />
+        <input type='password' placeholder='New password (min 6 chars)' value={newPw} onChange={e => setNewPw(e.target.value)} required minLength={6} />
         <button type='submit'>Change Password</button>
       </form>
 
       <section className='user-posts-section'>
         <h3>My Posts</h3>
-
         {loadingPosts ? (
           <p>Loading posts...</p>
         ) : posts.length === 0 ? (
@@ -150,9 +111,7 @@ const ProfilePage = () => {
             {posts.map(post => (
               <div key={post._id} className='post-item'>
                 <div className='post-header'>
-                  <Link to={`/posts/${post._id}`} className='post-link'>
-                    <h4>{post.title}</h4>
-                  </Link>
+                  <Link to={`/posts/${post._id}`} className='post-link'><h4>{post.title}</h4></Link>
                   <small>{new Date(post.createdAt).toLocaleDateString()}</small>
                 </div>
                 <p className='post-preview'>{post.body.substring(0, 150)}...</p>

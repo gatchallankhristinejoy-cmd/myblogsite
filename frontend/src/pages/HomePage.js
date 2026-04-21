@@ -1,4 +1,3 @@
-// frontend/src/pages/HomePage.js
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import API from '../api/axios';
@@ -27,7 +26,7 @@ const HomePage = () => {
         {posts.map(post => (
           <div key={post._id} className='post-card'>
             <img
-              src={post.image ? `http://localhost:5000/uploads/${post.image}` : '/music-hero.jpg'}
+              src={post.image ? `https://myblogsite-cov8.onrender.com/uploads/${post.image}` : '/music-hero.jpg'}
               alt={post.title}
             />
 
