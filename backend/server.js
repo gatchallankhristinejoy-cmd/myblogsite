@@ -23,7 +23,7 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization'],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
 }));
-
+// FIXED CORS
 app.use(express.json());
 
 // ✅ FIX FOR WebAssembly MIME TYPE ERROR
