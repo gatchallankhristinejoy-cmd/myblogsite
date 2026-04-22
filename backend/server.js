@@ -15,21 +15,30 @@ const app = express();
 // Connect to MongoDB
 connectDB(); 
 
-// ✅ PINAKA-SIMPLE AT PERMISSIVE CORS - PARA LANG SA TESTING
-app.use(cors({
-    origin: '*',  // Payagan lahat ng domains
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
-    credentials: false  // Dahil naka '*' ang origin, dapat false ang credentials
-}));
-
-// O kaya ganito para sa credentials
-// app.use(cors({
-//     origin: 'https://myblogsite-widi.vercel.app',
-//     credentials: true,
-//     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-//     allowedHeaders: ['Content-Type', 'Authorization']
-// }));
+// ============================================
+// ✅ ULTIMATE CORS FIX - ITO ANG GAMITIN MO
+// ============================================
+app.use((req, res, next) => {
+    // Allow specific origin
+    const allowedOrigins = ['https://myblogsite-widi.vercel.app', 'http://localhost:5173'];
+    const origin = req.headers.origin;
+    
+    if (allowedOrigins.includes(origin)) {
+        res.setHeader('Access-Control-Allow-Origin', origin);
+    }
+    
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    res.setHeader('Access-Control-Max-Age', '86400'); // 24 hours
+    
+    // Handle preflight requests
+    if (req.method === 'OPTIONS') {
+        return res.status(200).end();
+    }
+    
+    next();
+});
 
 app.use(express.json());
 
